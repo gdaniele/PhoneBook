@@ -1,10 +1,3 @@
-//
-//  UserRespositoryTests.swift
-//  PhoneBookTests
-//
-//  Created by Giancarlo Daniele on 5/12/26.
-//
-
 import Testing
 import Foundation
 @testable import PhoneBook
@@ -96,9 +89,9 @@ struct CachingUserRepositoryTests {
         result: Result<[APIUser], Error> = .success([]),
         cachedUsers: [User]? = nil
     ) -> (sut: CachingUserRepository, cache: InMemoryUserCache) {
-        let APIClient = StubAPIClient(result: result)
+        let client = StubAPIClient(result: result)
         let cache = InMemoryUserCache(users: cachedUsers)
-        let sut = CachingUserRepository(cache: cache, apiClient: APIClient)
+        let sut = CachingUserRepository(apiClient: client, cache: cache)
         return (sut, cache)
     }
 }
