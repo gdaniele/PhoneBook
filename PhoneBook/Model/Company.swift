@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct Company: Equatable, Codable {
+    let name: String
+    let address: Address
+}

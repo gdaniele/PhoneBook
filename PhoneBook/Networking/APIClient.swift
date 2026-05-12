@@ -8,7 +8,7 @@
 import Foundation
 
 protocol APIClient {
-    
+    func fetchUsers() async throws -> [APIUser]
 }
 
 protocol APIError {

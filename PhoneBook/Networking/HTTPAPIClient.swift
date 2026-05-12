@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct HTTPAPIClient: APIClient {
+    func fetchUsers() async throws -> [APIUser] {
+        // ToDo - Implement me
+        return [APIUser]()
+    }
+}
