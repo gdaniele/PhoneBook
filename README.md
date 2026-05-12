@@ -15,9 +15,13 @@ The key patterns: MVVM, protocol-oriented programming, separation of concerns, r
 MVVM + Repository
 
 **View** - renders ViewModel state, user intent
-**ViewModel** - owns view state (i.e. State enum), coordinates loading
+
+**ViewModel** - owns view state (i.e. State enum), coordinates loading\
+
 **Repository** - composes `APIClient` + `CachingUserRepository` for CRUD on `User`
+
 **APIClient** - `APIClient` protocol, `HTTPAPIClient` uses `URLSession` async API to fetch the S3 phonebok resource
+
 **Cache** - `UserCache` protocol, `FileUserCache` persists JSON to `Caches/` directory on device for offline loading
 
 ### Decisionmaking process
