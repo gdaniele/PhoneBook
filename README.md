@@ -1,5 +1,8 @@
 # Phonebook App
 
+<img width="568" height="1084" alt="Screenshot 2026-05-12 at 17 48 45" src="https://github.com/user-attachments/assets/ade08a79-7b5f-48e5-b84a-1f6bc55ebf10" />
+
+
 ## Where to start
 - Open `Phonebook.xcodeproj` in XCode 26 to build and run
 - To run implemented unit tests, see class `CachingUserRepositoryTests`
