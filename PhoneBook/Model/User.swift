@@ -8,38 +8,27 @@
 import Foundation
 
 struct User: Equatable, Codable {
-    let company: Company
-    let email: String
+    var id: String { email }
     let name: String
+    let email: String
+    let companyName: String
+    let industry: String
+    let phoneNumber: String
     let website: String
-}
-
-struct Address: Equatable, Codable {
-    let street: String
-    let city: String
-    let zipcode: String
+    let address: String
+    let companyDescription: String
 }
 
 extension User {
     init(apiModel: APIUser) {
         self.name = apiModel.name
         self.email = apiModel.email
+        self.companyName = apiModel.companyName
+        self.industry = apiModel.industry
+        self.phoneNumber = apiModel.phoneNumber
         self.website = apiModel.website
-        self.company = apiModel.company.toDomain()
+        self.address = apiModel.address
+        self.companyDescription = apiModel.companyDescription
     }
 }
 
-extension Address {
-    init(apiModel: APIAddress) {
-        self.street = apiModel.street
-        self.city = apiModel.city
-        self.zipcode = apiModel.zipcode
-    }
-}
-
-extension Company {
-    init(apiModel: APICompany) {
-        self.name = apiModel.name
-        self.address = apiModel.address.toDomain()
-    }
-}

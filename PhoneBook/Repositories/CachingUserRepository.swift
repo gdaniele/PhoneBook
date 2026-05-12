@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct CachingUserRepository: UserRepository {    
-    let cache: UserCache
+struct CachingUserRepository: UserRepository {
     let apiClient: APIClient
+    let cache: UserCache
     
     func cachedUsers() async -> [User]? {
         try? await cache.load()

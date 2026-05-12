@@ -11,6 +11,8 @@ protocol APIClient {
     func fetchUsers() async throws -> [APIUser]
 }
 
-protocol APIError {
-    
+enum APIError: Error {
+    case invalidResponse
+    case httpError(statusCode: Int)
+    case decodingFailed(underlying: Error)
 }
