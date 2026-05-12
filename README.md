@@ -34,16 +34,43 @@ All the wiring for dependencies happens in `AppDepedencies`, simple, discoverabl
 
 
 ## Discussion items
+
 ### Where I'd go from here: larger app
+For a larger app, i'd try to modularize different abstractions via SPM packages for faster builds, better boundaries between abstractions, and potentailly code sharing down the line.
+
+I'd implenent a coordinator pattern for navigation so the view layer doesn't have components that are coupled to other view components.
+
+I'd implement SwiftData or CoreData for querying the data model (assuming it gets more complex than S3-hosted JSON).
+
 ### Where I'd go from here: testing
+I wrote tests for `CachingUserRepository` while doing TDD as one of the first classes implemented.
+
+I'd write more tests for:
+- `UserListVieController`, specifically testing the state machine
+- `HTTPAPIClient`, with a stub protocol, to test how this component responds to the (oh so many) potential HTTP status codes
+
 ### Pagination
+- Switch to offset based pagination (versus cursor, which is best for algorithmic feeds e.g.)
+- ViewModel accumulates pages, triggers the next fetch based on UIKit callbacks when the scrolling is in the bottom 1/4 pagefuls (or some similar hueristic)
+- Potentially we'd cache one page at a time
+
 ### Authentication
-### Pagination
+- Store token in Keychain securely
+- Implement Authorization: Bearer HTTP authentication on server and client
+- On HTTP Unauthorized callbacks, reauthenticate visually to user
+
+## Resilience
+- Retry w/ exponential backoff for .timedOut and .networkConnectionLost URLErrors
+- Don't error on HTTP request failure if there's data in cache
+- E-Tags to efficiently check for updates without firing network controller on device (battery!)
+
 ### Tradeoffs I made in this 4-6 hours
 
-*Codable + FileManager vs Core Data*
-*No pagination vs page / cursor pagination *
-*No "coordinator" layer vs [COORDINATOR framework]*
-*Simple dependency injection vs Swinject*
-*UIKit vs SwiftUI*
-*No service layer*
+*Codable + FileManager vs Core Data* - Overkill, no need to query data. JSON contact list is fine to store on disk.
+
+*No pagination vs page / cursor pagination * - Overkill, there's 100 static elements here
+*No "coordinator" layer* - We're coupling some view logic (e.g. concrete `UserDetailViewController` to `UserListViewController`), but there are literally only 2 screen in this 4-hour app :)
+
+*Simple dependency injection vs Swinject* - Similar to above, if we build this out, we'd want to use a DI framework at some point when the depedencies get complicated or are dependent on business logic. 
+
+*No service layer* - Overkill, there's no busines logic between the view layer and the CRUD layer at this point.
