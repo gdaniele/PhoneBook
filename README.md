@@ -45,7 +45,7 @@ All the wiring for dependencies happens in `AppDepedencies`, simple, discoverabl
 ### Where I'd go from here: larger app
 For a larger app, i'd try to modularize different abstractions via SPM packages for faster builds, better boundaries between abstractions, and potentailly code sharing down the line.
 
-I'd implenent a coordinator pattern for navigation so the view layer doesn't have components that are coupled to other view components.
+I'd implement a coordinator pattern for navigation so the view layer doesn't have components that are coupled to other view components.
 
 I'd implement SwiftData or CoreData for querying the data model (assuming it gets more complex than S3-hosted JSON).
 
@@ -57,9 +57,8 @@ I'd write more tests for:
 - `HTTPAPIClient`, with a stub protocol, to test how this component responds to the (oh so many) potential HTTP status codes
 
 ### Pagination
-- Switch to offset based pagination (versus cursor, which is best for algorithmic feeds e.g.)
-- ViewModel accumulates pages, triggers the next fetch based on UIKit callbacks when the scrolling is in the bottom 1/4 pagefuls (or some similar hueristic)
-- Potentially we'd cache one page at a time
+- For this static 100 resource feed, pagination isn't needed
+- If this list grew, I'd use offset based pagination, since data stability is not that much of a regular concern (versus feed type apps where this is more common)
 
 ### Authentication
 - Store token in Keychain securely
@@ -80,4 +79,9 @@ I'd write more tests for:
 
 *Simple dependency injection vs Swinject* - Similar to above, if we build this out, we'd want to use a DI framework at some point when the depedencies get complicated or are dependent on business logic. 
 
-*No service layer* - Overkill, there's no busines logic between the view layer and the CRUD layer at this point.
+*No service layer* - Overkill, there's no business logic between the view layer and the CRUD layer at this point. There's no complex business logic between the data layers and the view (yet!)
+
+### How I verified
+- TDD for the service, repo, and data caching layers
+- Ran unit tests
+- Manually verified cache with debug statements
