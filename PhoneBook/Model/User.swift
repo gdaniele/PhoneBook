@@ -24,4 +24,3 @@ extension User {
         self.companyDescription = apiModel.companyDescription
     }
 }
-

@@ -23,7 +23,7 @@ struct StubAPIClient: APIClient {
     let result: Result<[APIUser], Error>
 
     func fetchUsers() async throws -> [APIUser] {
-        try result.get()  // .success → returns value; .failure → throws error
+        try result.get()
     }
 }
 
